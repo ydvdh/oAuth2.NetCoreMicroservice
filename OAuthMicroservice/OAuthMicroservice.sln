@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.API", "Movies.API\Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{176C1475-0B17-41D3-B4D7-531D7BB838B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.UI", "Movies.UI\Movies.UI.csproj", "{BC964CB5-DEC1-4A25-87CB-C036C3AC2ED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.UI", "Movies.UI\Movies.UI.csproj", "{BC964CB5-DEC1-4A25-87CB-C036C3AC2ED2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
