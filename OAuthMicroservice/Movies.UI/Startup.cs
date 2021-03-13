@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movies.UI.APIServices;
+using System;
+using System.Net.Http;
 
 namespace Movies.UI
 {
@@ -22,8 +24,9 @@ namespace Movies.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddHttpClient<IMovieApiService, MovieApiService>();
 
+            services.AddHttpClient<IMovieApiService>();
+            services.AddScoped<IMovieApiService, MovieApiService>();
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

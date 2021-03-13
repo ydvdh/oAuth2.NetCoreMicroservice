@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -26,7 +28,13 @@ namespace Movies.UI.Controllers
             return View(await _movieApiService.GetMovies());
         }
 
-        public async Task WriteOutIdentityInformation()
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+        }
+
+            public async Task WriteOutIdentityInformation()
         {
             // get the saved identity token
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
