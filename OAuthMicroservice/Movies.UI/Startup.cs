@@ -25,7 +25,7 @@ namespace Movies.UI
         {
             services.AddControllersWithViews();
 
-            services.AddHttpClient<IMovieApiService>();
+            //services.AddHttpClient<IMovieApiService>();
             services.AddScoped<IMovieApiService, MovieApiService>();
             services.AddAuthentication(options =>
             {
