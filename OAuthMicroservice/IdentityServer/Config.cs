@@ -15,23 +15,23 @@ namespace IdentityServer
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                new Client
-                {
-                    ClientId = "movieClient",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = { "movieAPI" }
-                },
+                //new Client
+                //{
+                //    ClientId = "movieClient",
+                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                //    ClientSecrets =
+                //    {
+                //        new Secret("secret".Sha256())
+                //    },
+                //    AllowedScopes = { "movieAPI" }
+                //},
                 // client properties for MVC app
                 new Client
                 {
                     ClientId = "movies_mvc_client",
                     ClientName = "Movies MVC Web App",
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = false,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequirePkce = false, // for hybrid flow
                     AllowRememberConsent = false,
                     RedirectUris = new List<string>()
                     {
@@ -48,11 +48,8 @@ namespace IdentityServer
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Address,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "movieAPI",
-                        "roles"
+                        IdentityServerConstants.StandardScopes.Profile,                      
+                        "movieAPI",                       
                     }
                 }
             };

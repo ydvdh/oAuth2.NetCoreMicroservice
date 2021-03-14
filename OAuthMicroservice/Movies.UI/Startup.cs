@@ -47,13 +47,14 @@ namespace Movies.UI
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
-            services.AddSingleton(new ClientCredentialsTokenRequest
-            {
-                Address = "https://localhost:5005/connect/token",
-                ClientId = "movieClient",
-                ClientSecret = "secret",
-                Scope = "movieAPI"
-            });
+            //services.AddSingleton(new ClientCredentialsTokenRequest
+            //{
+            //    Address = "https://localhost:5005/connect/token",
+            //    ClientId = "movieClient",
+            //    ClientSecret = "secret",
+            //    Scope = "movieAPI"
+            //});
+            services.AddHttpContextAccessor();
 
             services.AddAuthentication(options =>
             {
@@ -66,10 +67,11 @@ namespace Movies.UI
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = "https://localhost:5005";
                 options.ClientId = "movies_mvc_client";
-                options.ResponseType = "code";
+                options.ResponseType = "code id_token";
                 options.UsePkce = false;
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
+                options.Scope.Add("movieAPI");
                 options.SaveTokens = true;
                 options.ClientSecret = "secret";
 
