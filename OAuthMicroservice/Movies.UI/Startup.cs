@@ -1,4 +1,6 @@
-﻿using IdentityModel.Client;
+﻿using IdentityModel;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -6,10 +8,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Movies.UI.APIServices;
 using Movies.UI.HttpHandlers;
 using System;
+using System.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 
@@ -20,7 +24,7 @@ namespace Movies.UI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+           //JwtSecurityTokenHandler..DefaultInboundClaimTypeMap.Clear();
         }
 
         public IConfiguration Configuration { get; }
@@ -77,11 +81,20 @@ namespace Movies.UI
                 options.Scope.Add("address");
                 options.Scope.Add("email");
                 options.Scope.Add("movieAPI");
+                options.Scope.Add("roles");
+
+                options.ClaimActions.MapUniqueJsonKey("role", "role");
 
                 options.SaveTokens = true;
                 options.ClientSecret = "secret";
 
                 options.GetClaimsFromUserInfoEndpoint = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.GivenName,
+                    RoleClaimType = JwtClaimTypes.Role
+                };
             });
         }
 
