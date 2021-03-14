@@ -28,6 +28,13 @@ namespace Movies.UI.Controllers
             return View(await _movieApiService.GetMovies());
         }
 
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> OnlyAdmin()
+        {
+            var userInfo = await _movieApiService.GetUserInfo();
+            return View(userInfo);
+        }
+
         public async Task Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
