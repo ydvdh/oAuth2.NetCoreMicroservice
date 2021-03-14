@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using Microsoft.IdentityModel.Tokens;
 
 namespace APIGateway
 {
@@ -16,10 +19,23 @@ namespace APIGateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var authenticationProviderKey = "IdentityApiKey";
+
+            services.AddAuthentication()
+             .AddJwtBearer(authenticationProviderKey, x =>
+             {
+                 x.Authority = "https://localhost:5005"; // IDENTITY SERVER URL
+                 //x.RequireHttpsMetadata = false;
+                 x.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateAudience = false
+                 };
+             });
+            services.AddOcelot();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -30,11 +46,10 @@ namespace APIGateway
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
+
+            await app.UseOcelot();
         }
     }
 }

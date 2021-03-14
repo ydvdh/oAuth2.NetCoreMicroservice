@@ -67,7 +67,7 @@ namespace Movies.UI.APIServices
             #endregion
 
             var httpClient = _httpClientFactory.CreateClient("MovieAPIClient");
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/movies");
+            var request = new HttpRequestMessage(HttpMethod.Get, "/movies");
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
