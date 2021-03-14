@@ -10,6 +10,7 @@ using Microsoft.Net.Http.Headers;
 using Movies.UI.APIServices;
 using Movies.UI.HttpHandlers;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 
 namespace Movies.UI
@@ -19,6 +20,7 @@ namespace Movies.UI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         }
 
         public IConfiguration Configuration { get; }
@@ -69,9 +71,13 @@ namespace Movies.UI
                 options.ClientId = "movies_mvc_client";
                 options.ResponseType = "code id_token";
                 options.UsePkce = false;
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
+
+                //options.Scope.Add("openid");
+                //options.Scope.Add("profile");
+                options.Scope.Add("address");
+                options.Scope.Add("email");
                 options.Scope.Add("movieAPI");
+
                 options.SaveTokens = true;
                 options.ClientSecret = "secret";
 
