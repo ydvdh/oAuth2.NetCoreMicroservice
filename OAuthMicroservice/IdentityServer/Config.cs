@@ -53,7 +53,11 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Email,
                         "movieAPI",     
                         "roles"
-                    }
+                    },
+                    AccessTokenLifetime = 120,
+                    AllowOfflineAccess = true,
+                    UpdateAccessTokenClaimsOnRefresh = true
+                    ///RefreshTokenExpiration = TokenExpiration.Sliding                  
                 }
             };
 

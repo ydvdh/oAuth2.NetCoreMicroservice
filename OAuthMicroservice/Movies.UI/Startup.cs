@@ -85,6 +85,7 @@ namespace Movies.UI
                 options.Scope.Add("email");
                 options.Scope.Add("movieAPI");
                 options.Scope.Add("roles");
+                options.Scope.Add("offline_access");
 
                 options.ClaimActions.MapUniqueJsonKey("role", "role");
 
