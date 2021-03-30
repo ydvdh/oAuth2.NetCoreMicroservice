@@ -35,7 +35,13 @@ namespace Movies.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Movies.API", Version = "v1" });
             });
-
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+                });
+            });
             services.AddDbContext<MoviesContext>(options => options.UseInMemoryDatabase("Movies"));
             services.AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", options =>
@@ -65,6 +71,8 @@ namespace Movies.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
