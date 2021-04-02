@@ -28,19 +28,21 @@ namespace IdentityServer
                 // client properties for MVC app
                 new Client
                 {
-                    ClientId = "movies_mvc_client",
-                    ClientName = "Movies MVC Web App",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    ClientId = "spa-client",
+                    ClientName = "Projects SPA",
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = false, // for hybrid flow
                     AllowRememberConsent = false,
                     RedirectUris = new List<string>()
                     {
-                        "https://localhost:5002/signin-oidc"
+                        "http://localhost:4200/signin-callback",
+                        "http://localhost:4200/assets/silent-callback.html"
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
-                        "https://localhost:5002/signout-callback-oidc"
+                        "http://localhost:4200/signout-callback"
                     },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
                     ClientSecrets = new List<Secret>
                     {
                         new Secret("secret".Sha256())

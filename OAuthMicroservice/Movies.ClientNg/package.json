@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~11.1.0",
     "@angular/platform-browser-dynamic": "~11.1.0",
     "@angular/router": "~11.1.0",
+    "angular-auth-oidc-client": "^11.6.4",
+    "oidc-client": "^1.11.5",
     "rxjs": "~6.5.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

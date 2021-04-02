@@ -18,6 +18,8 @@ import { ContactUsComponent } from './home/contact-us.component';
 
 import { CoreModule } from './core/core.module';
 import { MovieListComponent } from './movies/movie-list.component';
+import { SigninRedirectCallbackComponent } from './home/signin-redirect-callback.component';
+import { SignoutRedirectCallbackComponent } from './home/signout-redirect-callback.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { MovieListComponent } from './movies/movie-list.component';
     HomeComponent,
     ContactUsComponent,
     MovieListComponent,
+    SigninRedirectCallbackComponent,
+    SignoutRedirectCallbackComponent
   ],
   imports: [
     BrowserModule,

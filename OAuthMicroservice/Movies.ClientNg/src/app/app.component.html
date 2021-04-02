@@ -6,9 +6,11 @@
             </span>
         </a>
         <span class="navbar-fill">
-            <button mat-button routerLink="/movies">Movies</button>
+            <button *ngIf="isLoggedIn" mat-button routerLink="/movies">Movies</button>
         </span>
         <span>
+            <button *ngIf="!isLoggedIn" mat-button (click)="login()">Login</button>
+            <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
         </span>
     </mat-toolbar>
 </nav>
