@@ -19,9 +19,14 @@ export class AuthService {
       redirect_uri: `${Constants.clientRoot}signin-callback`,
       post_logout_redirect_uri: `${Constants.clientRoot}signout-callback`,
       response_type: "code",
-      scope: "openid profile movieAPI"
+      scope: "openid profile movieAPI",
+      automaticSilentRenew: true,
+      silent_redirect_uri: `${Constants.clientRoot}assets/silent-callback.html`
     };
     this._userManager = new UserManager(stsSettings);
+    this._userManager.events.addAccessTokenExpired(_ => {
+      this._loginChangedSubject.next(false);
+    })
   }
 
   login() {
@@ -53,6 +58,7 @@ export class AuthService {
 
   completeLogout() {
     this._user = null;
+    this._loginChangedSubject.next(false);
     return this._userManager.signoutRedirectCallback();
   }
 
