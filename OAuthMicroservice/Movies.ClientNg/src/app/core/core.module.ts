@@ -1,4 +1,6 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { AuthInterceptorService } from './auth-interceptor.service';
 import { AuthService } from './auth-service.';
 import { MovieService } from './movie.service';
 @NgModule({
@@ -7,7 +9,8 @@ import { MovieService } from './movie.service';
     declarations: [],
     providers: [
         MovieService,
-        AuthService
+        AuthService,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
     ],
 })
 export class CoreModule { }
